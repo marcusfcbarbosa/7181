@@ -1,1 +1,5 @@
 <h1> {{ tittle }} </h1>
+<button (click)="alterarTexto()">Alterar </button>
+<ul>
+    <li *ngFor="let todo of todos">{{todo}} </li>
+</ul>

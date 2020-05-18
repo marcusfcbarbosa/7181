@@ -13,5 +13,12 @@ export class AppComponent {
   constructor() {
     this.todos.push('teste');
     this.todos.push('teste');
+    this.todos.push('teste');
+    this.todos.push('teste');
+    this.todos.push('teste');
+  }
+
+  alterarTexto(){
+    this.tittle='Teste Novo';
   }
 }
