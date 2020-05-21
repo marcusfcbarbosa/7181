@@ -22,12 +22,8 @@ export class AppComponent {
         Validators.required
       ])]
     });
-
-
-    this.todos.push(new Todo('ir ao mercado', false, 1));
-    this.todos.push(new Todo('ir ao pet', false, 2));
-    this.todos.push(new Todo('ir ao açougue', false, 3));
-    this.todos.push(new Todo('ir ao entrevista', false, 4));
+    this.load();
+    
   }
 
   remove(todo: Todo): Todo {
@@ -40,20 +36,35 @@ export class AppComponent {
 
   add() {
     const tittle = this.form.controls['tittle'].value;
-    const id = this.todos.length +1;
+    const id = this.todos.length + 1;
     this.todos.push(new Todo(tittle, false, id));
-
+    this.save();
+    this.clear();
+  }
+  clear() {
+    this.form.reset();
   }
 
   markAsDone(todo: Todo) {
     todo.done = true;
-
+    this.save();
   }
   markAsUndone(todo: Todo) {
     todo.done = false;
+    this.save();
   }
 
   alterarTexto() {
     this.tittle = 'Teste Novo';
+  }
+
+  //salvando e lendo do LocalStorage
+  save() {
+    const data = JSON.stringify(this.todos);//converte json em string
+    localStorage.setItem('todos', data);//ele pede um dictionary chave e valor, adicionando no LocalStorage
+  }
+  load(){
+    const data = localStorage.getItem('todos');
+    this.todos = JSON.parse(data);
   }
 }
