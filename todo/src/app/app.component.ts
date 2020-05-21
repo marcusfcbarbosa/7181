@@ -18,10 +18,19 @@ export class AppComponent {
     this.todos.push(new Todo('ir ao entrevista', false, 4));
   }
 
-  remover() {
+  remove(todo: Todo): Todo {
+    const index = this.todos.indexOf(todo);
+    if (index !== -1) {
+      this.todos.splice(index, 1);
+    }
+    return todo;
   }
-  concluir() {
+  markAsDone(todo: Todo) {
+    todo.done = true;
 
+  }
+  markAsUndone(todo: Todo) {
+    todo.done = false;
   }
 
   alterarTexto() {
