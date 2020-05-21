@@ -10,8 +10,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 
 export class AppComponent {
+  public mode: string = 'list';
   public todos: Todo[] = [];
-  public tittle: String = 'Minhas tarefas';
+  public tittle: String = 'Lista de  tarefas';
   public form: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -23,7 +24,7 @@ export class AppComponent {
       ])]
     });
     this.load();
-    
+
   }
 
   remove(todo: Todo): Todo {
@@ -41,6 +42,7 @@ export class AppComponent {
     this.save();
     this.clear();
   }
+  
   clear() {
     this.form.reset();
   }
@@ -63,8 +65,16 @@ export class AppComponent {
     const data = JSON.stringify(this.todos);//converte json em string
     localStorage.setItem('todos', data);//ele pede um dictionary chave e valor, adicionando no LocalStorage
   }
-  load(){
+
+  load() {
     const data = localStorage.getItem('todos');
-    this.todos = JSON.parse(data);
+    if (data) {
+      this.todos = JSON.parse(data);
+    } else {
+      this.todos = [];
+    }
+  }
+  changeMode(mode: string) {
+    this.mode = mode;
   }
 }
