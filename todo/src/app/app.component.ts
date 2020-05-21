@@ -16,7 +16,7 @@ export class AppComponent {
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      tittle:['', Validators.compose([
+      tittle: ['', Validators.compose([
         Validators.minLength(3),
         Validators.maxLength(20),
         Validators.required
@@ -36,6 +36,13 @@ export class AppComponent {
       this.todos.splice(index, 1);
     }
     return todo;
+  }
+
+  add() {
+    const tittle = this.form.controls['tittle'].value;
+    const id = this.todos.length +1;
+    this.todos.push(new Todo(tittle, false, id));
+
   }
 
   markAsDone(todo: Todo) {
