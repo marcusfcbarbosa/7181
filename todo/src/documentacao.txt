@@ -1,0 +1,78 @@
+Começando com angular
+C:/Users/dev/7181-ComecandoComAngular
+
+1- Baixando versao atual do nodejs e npm
+	https://nodejs.org/en/
+============================================
+2-
+npm install -g @angular/cli --> feito isso, tem disponível o comando ng
+
+ng --version
+============================================
+3- Criando uma aplicação , com transpilador, testes...todo ambiente configurado
+	ng new todo
+A principio não iremos usar o angular-routig	
+============================================
+4- Possui servidor web integrado, que recompila e atualiza o frontend
+ ng serve (em modo desenvolvimento)
+ 
+ ng analytics project off
+============================================
+5- ReactivForms
+
+import { ReactiveFormsModule } from '@angular/forms';
+Tem de adicionar nos modulos, e ele por padrão não esta na aplicação
+
+
+dentro do Componente
+
+public form: FormGroup;
+
+na view 
+<form [formGroup]="form"> <===== Dessa Forma
+    <fieldset>
+        <label for="">
+            Tarefa
+        </label>
+        <input type="text">
+        <button> Salvar </button>
+    </fieldset>
+</form>
+
+Para criterios de validação usamos o FormBuilder, e injetamos
+dentro do construtor do componente
+constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      tittle:['', Validators.compose([
+        Validators.minLength(11),
+        Validators.maxLength(11),
+        Validators.required
+      ])]
+    });
+
+============================================
+6- Validação de formulario para saber se o usuario alterou o formulario
+<form [formGroup]="form">
+    <fieldset>
+        <label for="">
+            Tarefa
+        </label>
+        <input type="text" 
+        placeholder="Titulo" 
+        maxlength="20" 
+        formControlName="tittle">
+        <small *ngIf="form.controls.tittle.invalid && !form.controls.tittle.pristine">Este campo deve conter entre 3 e 20 caracteres</small>
+        <button [disabled]="form.invalid"> Salvar </button> <====desabilitando botao se o formulario esta invalido
+    </fieldset>
+</form>
+
+Exemplo, pode usar o (form.controls.tittle.pristine), para controlar se o
+usuario preencheu todo o formulario...etc
+============================================
+7- Publicar a operacao
+
+ng build --prod 
+
+|Gera um diretorio chamado dist
+joga o conteudo desta pasta onde for feita a publicação
+
